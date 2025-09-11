@@ -1,0 +1,68 @@
+import Conversation from "../models/conversation.model.js";
+import Message from "../models/message.model.js";
+
+export const sendMessage = async (req, res) => {
+  try {
+    const { message } = req.body;
+    const { id: receiverId } = req.params;
+
+    //Set initially from Middleware - Our Current User in DB
+    const senderId = req.user._id;
+
+    let conversation = await Conversation.findOne({
+      participants: { $all: [senderId, receiverId] },
+    });
+
+    //If no previous conversation happened btw these users
+    if (!conversation) {
+      conversation = await Conversation.create({
+        participants: [senderId, receiverId],
+      });
+    }
+
+    //Create new Message between these Users
+    const newMessage = new Message({ senderId, receiverId, message });
+
+    if (newMessage) {
+      conversation.messages.push(newMessage._id);
+    }
+
+    //MAKE REALTIME WITH SOCKETIO LATER
+
+    //Save to DB
+    // await conversation.save();
+    // await newMessage.save();
+    await Promise.all([conversation.save(), newMessage.save()]); //Run Parallel instead of 1 by 1
+
+    res.status(201).json({ newMessage });
+  } catch (error) {
+    console.log("Error in send message: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getMessages = async (req, res) => {
+  try {
+    const { id: userToChatId } = req.params;
+
+    //Set initially from Middleware - Our Current User in DB
+    const senderId = req.user._id;
+
+    //Find Conversation
+    const conversation = await Conversation.findOne({
+      participants: { $all: [senderId, userToChatId] },
+    }).populate("messages"); //Not references but actual messages
+
+    //If No Messages
+    if (!conversation) {
+      return res.status(200).json([]);
+    }
+
+    const messages = conversation.messages;
+
+    res.status(200).json(messages);
+  } catch (error) {
+    console.log("Error in getting messages: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
