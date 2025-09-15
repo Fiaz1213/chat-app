@@ -2,9 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
+import connectToMongoDB from "./db/connectDB.js";
+
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
-import connectToMongoDB from "./db/connectDB.js";
+import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +22,9 @@ app.use("/api/auth", authRoutes);
 
 //Setup Message Routes
 app.use("/api/messages", messageRoutes);
+
+//Setup User Routes
+app.use("/api/users", userRoutes);
 
 // app.get("/", (req, res) => {
 //   // root route http://localhost:5000/

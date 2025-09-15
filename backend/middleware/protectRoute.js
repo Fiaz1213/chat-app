@@ -23,7 +23,7 @@ const protectRoute = async (req, res, next) => {
       return res.status(404).json({ error: "user not found" });
     }
 
-    //Need this user ID in sendMessage API - That's why we accessed it
+    //Need this user ID in other APIs - That's why we set it here
     req.user = user;
 
     next();
