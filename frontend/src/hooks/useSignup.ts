@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+
 import { useAuthContext } from "../context/AuthContext";
+import { AUTH_CONTEXT_KEY } from "../util/constants";
 
 type SignupProps = {
   fullName: string;
@@ -33,10 +35,10 @@ const useSignup = () => {
       }
 
       //Set user to local Storage, Update Context and Navigate to Home Page
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem(AUTH_CONTEXT_KEY, JSON.stringify(data));
       setAuthUser(data);
 
-      console.log(data);
+      // console.log(data);
     } catch (error: any) {
       toast.error(error.message);
     } finally {

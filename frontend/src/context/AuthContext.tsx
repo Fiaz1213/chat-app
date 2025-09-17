@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
+import { AUTH_CONTEXT_KEY } from "../util/constants";
+
 //Values returning from backend
 type AuthUser = {
   _id: string;
@@ -21,7 +23,7 @@ type AuthContextProviderProps = {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const storedUser = localStorage.getItem("user");
+  const storedUser = localStorage.getItem(AUTH_CONTEXT_KEY);
   const initialUser: AuthUser | null = storedUser ? JSON.parse(storedUser) : null;
 
   const [authUser, setAuthUser] = useState<AuthUser | null>(initialUser);

@@ -1,0 +1,38 @@
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+
+import { useAuthContext } from "../context/AuthContext";
+import { AUTH_CONTEXT_KEY } from "../util/constants";
+
+const useLogout = () => {
+  const [loading, setLoading] = useState(false);
+  const { setAuthUser } = useAuthContext();
+
+  const logout = async () => {
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      //Remove User from local Storage, Update Context
+      localStorage.removeItem(AUTH_CONTEXT_KEY);
+      setAuthUser(null);
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, logout };
+};
+
+export default useLogout;
