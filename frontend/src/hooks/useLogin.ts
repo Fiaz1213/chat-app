@@ -30,7 +30,7 @@ const useLogin = () => {
       localStorage.setItem(AUTH_CONTEXT_KEY, JSON.stringify(data));
       setAuthUser(data);
 
-      console.log(data);
+      // console.log(data);
     } catch (error: any) {
       toast.error(error.message);
     } finally {

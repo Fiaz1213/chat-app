@@ -6,3 +6,9 @@ https://tailwindcss.com/docs/installation/using-vite
 
 Daisy UI
 https://daisyui.com/components/
+
+FRONTEND => REACT
+BACKEND => NODE.JS
+ORM => MONGOOSE
+DB => MONGO
+LIBRARIES => TAILWIND, DAISY-UI, ZUSTAND
