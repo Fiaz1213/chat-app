@@ -1,13 +1,14 @@
 import { create } from "zustand";
 
 import type { User } from "../types/user";
+import type { MessageT } from "../types/message";
 
 type ConversationStore = {
   selectedConversation: User | null;
   setSelectedConversation: (conversation: User | null) => void;
 
-  messages: any[]; // replace `any` with real message type later
-  setMessages: (messages: any[]) => void;
+  messages: MessageT[];
+  setMessages: (messages: MessageT[]) => void;
 };
 
 const useConversation = create<ConversationStore>((set) => ({
