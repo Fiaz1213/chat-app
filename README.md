@@ -54,49 +54,7 @@ npm i
 
 #### 5- Create initial users, messages, conversations via Postman:
 
-##### a) SIGNUP
-
-URL => http://localhost:5000/api/auth/signup
-TYPE => POST
-BODY => {
-"fullName": "Fiaz Shah",
-"username": "fiaz",
-"password": "123456",
-"confirmPassword": "123456",
-"gender": "male"
-}
-
-##### b) LOGIN
-
-URL => http://localhost:5000/api/auth/login
-TYPE => POST
-BODY => {
-"username": "fiaz",
-"password": "123456"
-}
-
-##### c) LOGOUT
-
-URL => http://localhost:5000/api/auth/logout
-TYPE => POST
-
-##### d) GET USERS
-
-URL => http://localhost:5000/api/users
-TYPE => GET
-
-##### e) SEND MESSAGES
-
-URL => http://localhost:5000/api/messages/send/<userId>
-TYPE => POST
-BODY => {
-"message": "Your message here"
-}
-
-##### f) GET MESSAGES
-
-URL => http://localhost:5000/api/messages/<conversations-id>
-TYPE => GET
+Refer to postman.txt file
 
 ## 🙌 Credits
 
