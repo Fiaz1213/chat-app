@@ -18,6 +18,9 @@ const Message = ({ message }: { message: MessageT }) => {
   const messageBGColor = fromMe ? "bg-green-500" : "bg-blue-500";
   const time = extractTime(message.createdAt);
 
+  //Added for realtime messages coming from socketio
+  const shakeClass = message.shouldShake ? "shake" : "";
+
   return (
     <div className={`chat ${chatClassName}`}>
       <div className="chat-image avatar">
@@ -26,7 +29,7 @@ const Message = ({ message }: { message: MessageT }) => {
         </div>
       </div>
 
-      <div className={`chat-bubble text-white ${messageBGColor}`}>
+      <div className={`chat-bubble text-white ${messageBGColor} ${shakeClass}`}>
         {message.message}
       </div>
 

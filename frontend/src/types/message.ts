@@ -4,4 +4,5 @@ export type MessageT = {
   senderId: string;
   receiverId: string;
   createdAt: string;
+  shouldShake: boolean; //not coming from backend...added for effect
 };

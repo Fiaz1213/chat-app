@@ -3,9 +3,14 @@ import React, { useEffect, useRef } from "react";
 import Message from "./Message";
 import useGetMessages from "../../hooks/useGetMessages";
 import MessageSkeleton from "./MessageSkeleton";
+import useListenMessages from "../../hooks/useListenMessages";
 
 const Messages = () => {
   const { loading, messages } = useGetMessages();
+
+  //Listening from any incoming messages coming from SocketIO
+  //For Realtime Messages btw Users
+  useListenMessages();
 
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
